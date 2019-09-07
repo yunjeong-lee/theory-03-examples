@@ -3,7 +3,7 @@ package concurrent
 /**
   * @author Ilya Sergey
   */
-class VolatileExample {
+class ReaderWriter {
   var x = 0
   @volatile
   var v: Boolean = false

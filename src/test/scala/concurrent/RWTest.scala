@@ -10,7 +10,7 @@ class RWTest extends FunSpec with Matchers {
   describe("Reader-writer") {
     it("should never divide by zero") {
       val LIMIT = 10
-      val v = new VolatileExample()
+      val v = new ReaderWriter()
       var result = true
       
       val writer = new Thread() {
