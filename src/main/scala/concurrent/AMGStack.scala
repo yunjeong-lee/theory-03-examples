@@ -2,6 +2,8 @@ package concurrent
 
 import java.util.concurrent.atomic.{AtomicInteger, AtomicReferenceArray}
 
+import util.ThreadID
+
 import scala.reflect.ClassTag
 
 /**
@@ -13,11 +15,13 @@ class AMGStack[T: ClassTag] {
   private val tail = new AtomicInteger(0)
 
   def push(x: T): Unit = {
-    val i = tail.getAndIncrement()
-    items.set(i, Some(x))
+    val i = ThreadID.get
+    val j = tail.getAndIncrement()
+    items.set(j, Some(x))
   }
 
   def pop(): Option[T] = {
+    val i = ThreadID.get
     val range = tail.get()
     for (i <- range - 1 until -1 by -1) {
       val value = items.getAndSet(i, None)
